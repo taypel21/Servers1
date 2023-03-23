@@ -6,6 +6,7 @@ const server = http.createServer((req, res) => {
     if (url === '/') {
         res.write("<h1>Welcome</h1> <img src=https://dummyimage.com/600x400/000/fffff>");
         res.end();
+        return;
     }
     if (url === '/List') {
         fetch("https://swapi.dev/api/people")
@@ -15,20 +16,20 @@ const server = http.createServer((req, res) => {
                 createData(data.results);
                 res.write(tableData);
                 res.end();
+                return;
             });
     }
     function createData(data) {
         data.forEach((element) => {
             tableData += `<tr><td>${element.name}</td><td>${element.height}</td><td>${element.birth_year}</td><td>${element.gender}</td><td>${element.url}</td></tr>`
-        })
+        });
         tableData += `</table>`;
-
     }
-    if (url === '/errorpage') {
+    if  (url === '/errorpage') {
         res.write("Page Not Found");
         res.end();
+        return;
     }
-
 }).listen(8090, () => console.log(`Server listening on port 8090`));
 
 
